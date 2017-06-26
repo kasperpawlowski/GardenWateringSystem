@@ -8,7 +8,7 @@ unsigned int i = 0;
 
 void setup() 
 { 
-  if(TEST) Serial1.begin(9600);
+  if(TEST) Serial.begin(9600);
 }
 
 void loop()

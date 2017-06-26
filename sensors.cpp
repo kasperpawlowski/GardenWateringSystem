@@ -72,14 +72,14 @@ void AirSensor::readSensor()
 
 void AirSensor::printInfo() const
 {
-  Serial1.print("Temperatura powietrza (oC): ");
-  Serial1.println(temperature_, 2);
+  Serial.print("Temperatura powietrza (oC): ");
+  Serial.println(temperature_, 2);
     
-  Serial1.print("Wilgotnosc wzgledna powietrza (%): ");
-  Serial1.println(humidity_, 2);
+  Serial.print("Wilgotnosc wzgledna powietrza (%): ");
+  Serial.println(humidity_, 2);
     
-  Serial1.print("Punkt rosy (oC): ");
-  Serial1.println(dewPoint_, 2);
+  Serial.print("Punkt rosy (oC): ");
+  Serial.println(dewPoint_, 2);
 }
 
 SoilSensorSegment::SoilSensorSegment(const int p1, const int p2, const int iD) :
@@ -123,23 +123,23 @@ void SoilSensorSegment::readSensor()
     
 void SoilSensorSegment::printInfo() const
 {
-  Serial1.print("Wilgotnosc gleby dla segmentu id=");
-  Serial1.print(id);
-  Serial1.println(": ");
+  Serial.print("Wilgotnosc gleby dla segmentu id=");
+  Serial.print(id);
+  Serial.println(": ");
   for(int i=0; i<2; ++i) {
-    Serial1.print("czujnik ");
-    Serial1.print(i+1);
-    Serial1.print(": ");
-    if(dryness_[i]) Serial1.println("sucho");
-    else Serial1.println("wilgotno");
+    Serial.print("czujnik ");
+    Serial.print(i+1);
+    Serial.print(": ");
+    if(dryness_[i]) Serial.println("sucho");
+    else Serial.println("wilgotno");
   }
   for(int i=0; i<2; ++i)
   {
-    Serial1.print("czujnik ");
-    Serial1.print(i+1);
-    Serial1.print(" wykryl suchosc gleby ");
-    Serial1.print(drynessCount_[i]);
-    Serial1.println(" razy");
+    Serial.print("czujnik ");
+    Serial.print(i+1);
+    Serial.print(" wykryl suchosc gleby ");
+    Serial.print(drynessCount_[i]);
+    Serial.println(" razy");
   }
 }
 
@@ -164,15 +164,15 @@ void WaterSensor::initSensor() const
 void WaterSensor::readSensor()
 {
   shouldBeWatered_ = !digitalRead(pinSensor_);
-
+  
   if(!shouldWater()) digitalWrite(pinBuzzer_, HIGH);
   else digitalWrite(pinBuzzer_, LOW);
 }
 
 void WaterSensor::printInfo() const
 {
-  if(shouldWater()) Serial1.println("W zbiorniku jest woda");
-  else Serial1.println("BRAK WODY W ZBIORNIKU!");
+  if(shouldWater()) Serial.println("W zbiorniku jest woda");
+  else Serial.println("BRAK WODY W ZBIORNIKU!");
 }
 
 Switch::Switch(const int pin) :

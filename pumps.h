@@ -34,7 +34,7 @@ class BasePump
     void controlPump();
     void startPump() const;
     void stopPump() const;
-    void printInfo() const;
+    virtual void printInfo() const = 0;
 
     friend class PumpSS;
     friend class PumpWT;
@@ -49,6 +49,7 @@ class PumpSS : public BasePump
   public:
     PumpSS(const int pin_pump, const int pin_pot, const int iD, const int time_per_cycle, const Switch* pS, const WaterSensor* pWS, const AirSensor* pAS, const SoilSensorSegment* pSS);
     ~PumpSS() {};
+    void printInfo() const;
 };
 
 //class for pump controlled by timer
@@ -63,5 +64,6 @@ class PumpWT : public BasePump
   public:
     PumpWT(const int pin_pump, const int pin_pot, const int iD, const int time_per_cycle, const Switch* pS, const WaterSensor* pWS, const AirSensor* pAS);
     ~PumpWT() {};
+    void printInfo() const;
 };
 #endif

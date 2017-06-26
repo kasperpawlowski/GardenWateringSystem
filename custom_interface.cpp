@@ -48,8 +48,8 @@ namespace interface
       pump1.printInfo();
       pump2.printInfo();
       water_sensor.printInfo();
-      Serial1.print("TIMESTAMP (s): ");
-      Serial1.println(millis()/1e3);
-      Serial1.println();
+      Serial.print("TIMESTAMP (s): ");
+      Serial.println(millis()/1e3);
+      Serial.println();
   }
 }

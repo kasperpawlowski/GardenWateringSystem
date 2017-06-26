@@ -92,36 +92,6 @@ void BasePump::controlPump()
   }
 }
 
-void BasePump::printInfo() const
-{
-  Serial1.print("Minimalny czas pomiedzy uruchomieniami pompy id=");
-  Serial1.print(id);
-  Serial1.print(" [min]: ");
-  Serial1.println(timeBetweenTurnsOn_/60., 1);
-  Serial1.print("Pompa id=");
-  Serial1.print(id);
-  Serial1.print(" zostala uruchomiona ");
-  Serial1.print(powerOnCycleCount_);
-  Serial1.println(" razy");
-  Serial1.print("Pompa id=");
-  Serial1.print(id);
-  switch(pumpState_)
-  {
-    case idle:
-      Serial1.println(" w stanie oczekiwania");
-      break;
-    case onAuto:
-      Serial1.println(" wlaczona automatycznie");
-      break;
-    case onMan:
-      Serial1.println(" wlaczona manualnie");
-      break;
-    case off:
-      Serial1.println(" wylaczona");
-      break;
-  }
-}
-
 PumpSS::PumpSS(const int pin_pump, const int pin_pot, const int time_per_cycle, const int iD, const Switch* pS, const WaterSensor* pWS, const AirSensor* pAS, const SoilSensorSegment* pSS) :
   BasePump(pin_pump, pin_pot, time_per_cycle, iD, pS, pWS, pAS, pSS)
   {
@@ -131,6 +101,36 @@ PumpSS::PumpSS(const int pin_pump, const int pin_pot, const int time_per_cycle, 
 void PumpSS::countTimeBetweenTurnsOn()
 {  
   timeBetweenTurnsOn_ = map(analogRead(pinPot_),0,1023,2*timePerCycle_,_20_MIN_SEC-timePerCycle_);
+}
+
+void PumpSS::printInfo() const
+{
+  Serial.print("Minimalny czas pomiedzy uruchomieniami pompy id=");
+  Serial.print(id);
+  Serial.print(" [min]: ");
+  Serial.println(timeBetweenTurnsOn_/60., 1);
+  Serial.print("Pompa id=");
+  Serial.print(id);
+  Serial.print(" zostala uruchomiona ");
+  Serial.print(powerOnCycleCount_);
+  Serial.println(" razy");
+  Serial.print("Pompa id=");
+  Serial.print(id);
+  switch(pumpState_)
+  {
+    case idle:
+      Serial.println(" w stanie oczekiwania");
+      break;
+    case onAuto:
+      Serial.println(" wlaczona automatycznie");
+      break;
+    case onMan:
+      Serial.println(" wlaczona manualnie");
+      break;
+    case off:
+      Serial.println(" wylaczona");
+      break;
+  }
 }
 
 PumpWT::PumpWT(const int pin_pump, const int pin_pot, const int time_per_cycle, const int iD, const Switch* pS, const WaterSensor* pWS, const AirSensor* pAS) :
@@ -146,5 +146,38 @@ void PumpWT::countTimeBetweenTurnsOn()
   waterPerDay_ /= 100;
 
   timeBetweenTurnsOn_ = _DAY_SEC / ( waterPerDay_ / waterPerCycle_ );
+}
+
+void PumpWT::printInfo() const
+{
+  Serial.print("Minimalny czas pomiedzy uruchomieniami pompy id=");
+  Serial.print(id);
+  Serial.print(" [min]: ");
+  Serial.print(timeBetweenTurnsOn_/60., 1);
+  Serial.print(" -> ");
+  Serial.print(waterPerDay_, 1);
+  Serial.println(" [litry na dzien]");
+  Serial.print("Pompa id=");
+  Serial.print(id);
+  Serial.print(" zostala uruchomiona ");
+  Serial.print(powerOnCycleCount_);
+  Serial.println(" razy");
+  Serial.print("Pompa id=");
+  Serial.print(id);
+  switch(pumpState_)
+  {
+    case idle:
+      Serial.println(" w stanie oczekiwania");
+      break;
+    case onAuto:
+      Serial.println(" wlaczona automatycznie");
+      break;
+    case onMan:
+      Serial.println(" wlaczona manualnie");
+      break;
+    case off:
+      Serial.println(" wylaczona");
+      break;
+  }
 }
 
